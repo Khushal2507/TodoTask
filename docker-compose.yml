@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3307:3307"
+    environment:
+      MYSQL_ROOT_PASSWORD: khushal0225
+      MYSQL_DATABASE: db_tasks
+      MYSQL_USER: khushal
+      MYSQL_PASSWORD: khushal0225
+
+  dropwizard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql:3306/db_tasks
+      DATABASE_USER: khushal
+      DATABASE_PASSWORD: khushal0225
